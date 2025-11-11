@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const markak_202511101237Schema = new mongoose.Schema({
+    _id:{
+        type: Number
+    },    
     marka_nev: {
         required: true,
         type: String
