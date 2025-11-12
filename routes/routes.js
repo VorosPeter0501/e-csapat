@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose =require('mongoose');
 const Model = require('../Models/model');
 const router = express.Router();
 module.exports = router;
@@ -7,8 +6,8 @@ module.exports = router;
 router.post('/', async (req, res) => {
   try {
     const markak = new Model(req.body);
-    const savedmarkak = await savedmarkak.save();
-    res.status(201).json(markak);
+    const savedmarkak = await markak.save();
+    res.status(201).json(savedmarkak);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

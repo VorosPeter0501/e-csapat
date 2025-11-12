@@ -1,7 +1,7 @@
 {
   "name": "e_csapat_backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "e-csapat",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
@@ -17,5 +17,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VorosPeter0501/e-csapat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VorosPeter0501/e-csapat/issues"
+  },
+  "homepage": "https://github.com/VorosPeter0501/e-csapat#readme"
 }
