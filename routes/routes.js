@@ -6,9 +6,9 @@ module.exports = router;
 
 router.post('/', async (req, res) => {
   try {
-    const markak_202511101237 = new Model(req.body);
-    const savedmarkak_202511101237 = await savedmarkak_202511101237.save();
-    res.status(201).json(markak_202511101237);
+    const markak = new Model(req.body);
+    const savedmarkak = await savedmarkak.save();
+    res.status(201).json(markak);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -16,8 +16,8 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const  markak_202511101237 = await Model.find();
-    res.status(200).json( markak_202511101237);
+    const  markak= await Model.find();
+    res.status(200).json( markak);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -26,11 +26,11 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
-    const  markak_202511101237 = await Model.findById(id);
-    if (! markak_202511101237) {
+    const  markak = await Model.findById(id);
+    if (! markak) {
       return res.status(404).json({ message: 'Document not found' });
     }
-    res.status(200).json( markak_202511101237);
+    res.status(200).json( markak);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -39,10 +39,10 @@ router.get('/:id', async (req, res) => {
 router.patch('/:id', async (req, res) => {
  try {
  const id = req.params.id;
- const updatedmarkak_202511101237 = req.body;
+ const updatedmarkak = req.body;
  const options = { new: true };
  const result = await Model.findByIdAndUpdate(
- id, updatedmarkak_202511101237, options
+ id, updatedmarkak, options
  )
  res.send(result)
  }
@@ -55,8 +55,8 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
  try {
  const id = req.params.id;
- const markak_202511101237 = await Model.findByIdAndDelete(id)
- res.send(`Document with ${markak_202511101237.name} has been deleted..`)
+ const markak = await Model.findByIdAndDelete(id)
+ res.send(`Document with ${markak.name} has been deleted..`)
  }
  catch (error) {
  res.status(400).json({ message: error.message })

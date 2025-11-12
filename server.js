@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 
 const routes = require('./routes/routes');
-app.use('/api/markak_202511101237', routes); // Minden végpont ezzel az URL-lel fog kezdődni
+app.use('/api/markak', routes); // Minden végpont ezzel az URL-lel fog kezdődni
 
 
 app.listen(3000, () => {

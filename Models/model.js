@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-const markak_202511101237Schema = new mongoose.Schema({
-    _id:{
-        type: Number
-    },    
+const markakSchema = new mongoose.Schema({
+        
     marka_nev: {
         required: true,
         type: String
@@ -16,7 +14,7 @@ const markak_202511101237Schema = new mongoose.Schema({
         type: Number
     }
 })
-module.exports = mongoose.model('markak_202511101237', markak_202511101237Schema)
+module.exports = mongoose.model('markak', markakSchema)
 
 
 
