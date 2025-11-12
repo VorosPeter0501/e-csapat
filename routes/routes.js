@@ -1,13 +1,14 @@
 const express = require('express');
+const mongoose =require('mongoose');
 const Model = require('../Models/model');
 const router = express.Router();
 module.exports = router;
 
 router.post('/', async (req, res) => {
   try {
-    const newDocument = new Model(req.body);
-    const savedDocument = await newDocument.save();
-    res.status(201).json(savedDocument);
+    const markak_202511101237 = new Model(req.body);
+    const savedmarkak_202511101237 = await savedmarkak_202511101237.save();
+    res.status(201).json(markak_202511101237);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -15,8 +16,8 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const documents = await Model.find();
-    res.status(200).json(documents);
+    const  markak_202511101237 = await Model.find();
+    res.status(200).json( markak_202511101237);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -25,11 +26,11 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
-    const document = await Model.findById(id);
-    if (!document) {
+    const  markak_202511101237 = await Model.findById(id);
+    if (! markak_202511101237) {
       return res.status(404).json({ message: 'Document not found' });
     }
-    res.status(200).json(document);
+    res.status(200).json( markak_202511101237);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
