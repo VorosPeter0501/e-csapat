@@ -1,8 +1,39 @@
 const express = require('express');
-const Model = require('../models/model');
+const Model = require('../Models/model');
 const router = express.Router();
 module.exports = router;
 
+router.post('/', async (req, res) => {
+  try {
+    const newDocument = new Model(req.body);
+    const savedDocument = await newDocument.save();
+    res.status(201).json(savedDocument);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get('/', async (req, res) => {
+  try {
+    const documents = await Model.find();
+    res.status(200).json(documents);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const document = await Model.findById(id);
+    if (!document) {
+      return res.status(404).json({ message: 'Document not found' });
+    }
+    res.status(200).json(document);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 router.patch('/:id', async (req, res) => {
  try {
