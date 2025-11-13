@@ -12,7 +12,7 @@ const markakSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    alapitas_eve: {
+    alapitas_ev: {
         required: true,
         type: Number
     }
