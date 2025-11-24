@@ -8,8 +8,6 @@ describe('DELETE /api/markak/:id', () => {
     let testMarka;
 
     beforeEach(async () => {
-        await Marka.deleteMany({});
-
         testMarka = await Marka.create({
             marka_id: 999,
             marka_nev: 'TestMarka',
