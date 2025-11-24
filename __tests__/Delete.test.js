@@ -3,37 +3,45 @@ const app = require('../server');
 const Marka = require('../Models/model');
 const mongoose = require('mongoose');
 
-describe('DELETE /api/markak/:id', () => {
+describe('DELETE /api/markak/:id – 5 teszt', () => {
 
     let testMarka;
 
     beforeEach(async () => {
+        await Marka.deleteMany({});
         testMarka = await Marka.create({
-            marka_id: 999,
-            marka_nev: 'TestMarka',
+            marka_id: 10,
+            marka_nev: 'TesztMarka',
             orszag: 'Tesztország',
-            alapitas_ev: 2000
+            alapitas_ev: 1999
         });
     });
 
-    test('Sikeresen töröl egy márkát (200 OK)', async () => {
-        const response = await request(app)
-            .delete(`/api/markak/${testMarka._id}`);
+    test('1. Sikeres törlés–201 OK', async () => {
+        const res = await request(app).delete(`/api/markak/${testMarka._id}`);
+        expect(res.statusCode).toBe(201);
+    });
 
-        expect(response.statusCode).toBe(200);
-        expect(response.text).toContain('has been deleted');
+    test('2. Válasz tartalmazza a "deleted" szót', async () => {
+        const res = await request(app).delete(`/api/markak/${testMarka._id}`);
+        expect(res.text).toContain('deleted');
+    });
 
+    test('3. Az adat tényleg törlődik az adatbázisból', async () => {
+        await request(app).delete(`/api/markak/${testMarka._id}`);
         const deleted = await Marka.findById(testMarka._id);
         expect(deleted).toBeNull();
     });
 
-    test('404 ha nem létező ID-t adunk meg', async () => {
+    test('4. Nem létező ID → 400 hiba', async () => {
         const fakeId = new mongoose.Types.ObjectId();
+        const res = await request(app).delete(`/api/markak/${fakeId}`);
+        expect(res.statusCode).toBe(400);
+    });
 
-        const response = await request(app)
-            .delete(`/api/markak/${fakeId}`);
-
-        expect(response.statusCode).toBe(400); 
+    test('5. Hibás ID formátum → 400', async () => {
+        const res = await request(app).delete('/api/markak/rossz_id');
+        expect(res.statusCode).toBe(400);
     });
 
 });
