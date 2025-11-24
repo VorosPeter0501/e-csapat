@@ -24,3 +24,5 @@ app.use('/api/markak', routes); // Minden végpont ezzel az URL-lel fog kezdődn
 app.listen(3000, () => {
 console.log(`Server Started at ${3000}`)
 })
+
+module.exports = app

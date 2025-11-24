@@ -4,7 +4,8 @@
   "description": "e-csapat",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -12,8 +13,10 @@
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "jest": "^30.2.0",
     "mongodb": "^7.0.0",
-    "mongoose": "^8.19.3"
+    "mongoose": "^8.19.3",
+    "supertest": "^7.1.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
