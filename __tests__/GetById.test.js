@@ -17,7 +17,7 @@ describe('POST /api/markak', () => {
     });
 
 
-    test('1. Sikeresen létrehoz egy új márkát érvényes adatokkal (201 Created)', async () => {
+    test('1. Sikeresen létrehoz egy új márkát érvényes adatokkal (200)', async () => {
         const response = await request(app)
             .post('/api/markak')
             .send(validMarka);

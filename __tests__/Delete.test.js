@@ -17,9 +17,9 @@ describe('DELETE /api/markak/:id – 5 teszt', () => {
         });
     });
 
-    test('1. Sikeres törlés–201 OK', async () => {
+    test('1. Sikeres törlés–200 OK', async () => {
         const res = await request(app).delete(`/api/markak/${testMarka._id}`);
-        expect(res.statusCode).toBe(201);
+        expect(res.statusCode).toBe(200);
     });
 
     test('2. Válasz tartalmazza a "deleted" szót', async () => {
@@ -33,10 +33,10 @@ describe('DELETE /api/markak/:id – 5 teszt', () => {
         expect(deleted).toBeNull();
     });
 
-    test('4. Nem létező ID → 400 hiba', async () => {
+    test('4. Nem létező ID → 404 hiba', async () => {
         const fakeId = new mongoose.Types.ObjectId();
         const res = await request(app).delete(`/api/markak/${fakeId}`);
-        expect(res.statusCode).toBe(400);
+        expect(res.statusCode).toBe(404);
     });
 
     test('5. Hibás ID formátum → 400', async () => {

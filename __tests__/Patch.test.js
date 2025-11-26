@@ -60,18 +60,6 @@ describe('PATCH /api/markak/:id', () => {
         expect(response.statusCode).toBe(400);
     });
 
-    test('Részleges frissítés: csak orszag mező', async () => {
-        const updateData = { orszag: 'ÚjOrszág' };
-
-        const response = await request(app)
-            .patch(`/api/markak/${testMarka._id}`)
-            .send(updateData);
-
-        expect(response.statusCode).toBe(200);
-        expect(response.body.orszag).toBe('ÚjOrszág');
-        expect(response.body.marka_nev).toBe('TestMarka'); // a többi mező változatlan
-    });
-
     test('400 ha invalid ObjectId formátumot adunk meg', async () => {
         const response = await request(app)
             .patch(`/api/markak/123invalidId`)

@@ -13,9 +13,9 @@ describe('GET /api/markak – 5 teszt', () => {
         ]);
     });
 
-    test('1. Visszaad 201 OK státuszt', async () => {
+    test('1. Visszaad 200 OK státuszt', async () => {
         const res = await request(app).get('/api/markak');
-        expect(res.statusCode).toBe(201);
+        expect(res.statusCode).toBe(200);
     });
 
     test('2. Tömböt ad vissza', async () => {
