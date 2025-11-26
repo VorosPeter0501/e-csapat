@@ -18,22 +18,66 @@ describe('PATCH /api/markak/:id', () => {
         });
     });
 
-    
-
-    test('Sikeresen frissít egy márkát (200 OK)', async () => {
-        const response = await request(app)
-            .patch(`markak/${testMarka._id}`) // ezt javitani majd
-
-        expect(response.statusCode).toBe(204);
+    afterAll(async () => {
+        await mongoose.connection.close();
     });
 
-    // test('404 ha nem létező ID-t adunk meg', async () => {
-    //     const fakeId = new mongoose.Types.ObjectId();
+    test('Sikeresen frissít egy márkát (200 OK)', async () => {
+        const updateData = { marka_nev: 'FrissítettMarka' };
 
-    //     const response = await request(app)
-    //         .delete(`/api/markak/${fakeId}`);
+        const response = await request(app)
+            .patch(`/api/markak/${testMarka._id}`)
+            .send(updateData)
+            .set('Content-Type', 'application/json');
 
-    //     expect(response.statusCode).toBe(400); 
-    // });
+        expect(response.statusCode).toBe(200);
+        expect(response.body.marka_nev).toBe('FrissítettMarka');
+    });
+
+    test('404 ha nem létező ID-t adunk meg', async () => {
+        const fakeId = new mongoose.Types.ObjectId();
+
+        const response = await request(app)
+            .patch(`/api/markak/${fakeId}`)
+            .send({ marka_nev: 'Valami' });
+
+        expect(response.statusCode).toBe(404);
+    });
+
+    test('400 ha üres body-t küldünk', async () => {
+        const response = await request(app)
+            .patch(`/api/markak/${testMarka._id}`)
+            .send({});
+
+        expect(response.statusCode).toBe(400);
+    });
+
+    test('400 ha rossz típusú adatot küldünk', async () => {
+        const response = await request(app)
+            .patch(`/api/markak/${testMarka._id}`)
+            .send({ alapitas_ev: 'nemSzám' });
+
+        expect(response.statusCode).toBe(400);
+    });
+
+    test('Részleges frissítés: csak orszag mező', async () => {
+        const updateData = { orszag: 'ÚjOrszág' };
+
+        const response = await request(app)
+            .patch(`/api/markak/${testMarka._id}`)
+            .send(updateData);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body.orszag).toBe('ÚjOrszág');
+        expect(response.body.marka_nev).toBe('TestMarka'); // a többi mező változatlan
+    });
+
+    test('400 ha invalid ObjectId formátumot adunk meg', async () => {
+        const response = await request(app)
+            .patch(`/api/markak/123invalidId`)
+            .send({ marka_nev: 'Valami' });
+
+        expect(response.statusCode).toBe(400);
+    });
 
 });
