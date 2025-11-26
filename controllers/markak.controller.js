@@ -1,5 +1,9 @@
 const Marka = require('../Models/model')
 
+exports.getMobilok = async (req, res, next) => {
+
+}
+
 exports.createMarka = async (req, res, next) => {
     try {
         const marka = await Marka.create(req.body);
