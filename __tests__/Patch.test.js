@@ -18,9 +18,7 @@ describe('PATCH /api/markak/:id', () => {
         });
     });
 
-    afterAll(async () => {
-        await mongoose.connection.close();
-    });
+    // Connection is handled by jest.mongo.js (mongodb-memory-server)
 
     test('Sikeresen frissít egy márkát (200 OK)', async () => {
         const updateData = { marka_nev: 'FrissítettMarka' };

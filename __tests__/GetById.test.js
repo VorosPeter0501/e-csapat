@@ -3,7 +3,6 @@ const app = require('../server');
 const Marka = require('../Models/model');
 const mongoose = require('mongoose');
 const MarkaController = require('../controller/marka.controller')
-Marka.findOne = jest.fn()
 describe('POST /api/markak', () => {
  
     const validMarka = {

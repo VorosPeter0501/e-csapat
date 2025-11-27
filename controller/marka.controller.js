@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 const Model = require('../Models/model');
-module.exports = getAll=async (req, res) => {
-     try {
+
+const getAll = async (req, res) => {
+  try {
     const markak = await Model.find();
     res.status(200).json(markak);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
+};
 
-}
-
-
-module.exports = createPost = async (req, res) => {
+const createPost = async (req, res) => {
   try {
     const markak = new Model(req.body);
     const savedmarkak = await markak.save();
@@ -19,10 +18,9 @@ module.exports = createPost = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-}
+};
 
-
-module.exports = getById = async (req, res) => {
+const getById = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -37,21 +35,18 @@ module.exports = getById = async (req, res) => {
     }
 
     res.status(200).json(markak);
-
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-}
+};
 
-module.exports = Patch = async (req, res) => {
+const patchMarka = async (req, res) => {
   try {
     const { id } = req.params;
-
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Invalid ID' });
     }
-
 
     if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({ message: 'üres adat' });
@@ -64,12 +59,12 @@ module.exports = Patch = async (req, res) => {
     }
 
     res.status(200).json(result);
-
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-}
-module.exports = deleteMarka = async (req, res) => {
+};
+
+const deleteMarka = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -84,8 +79,9 @@ module.exports = deleteMarka = async (req, res) => {
     }
 
     res.status(200).json({ message: 'Deleted', deleted: markak });
-
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-}
+};
+
+module.exports = { getAll, createPost, getById, patchMarka, deleteMarka };

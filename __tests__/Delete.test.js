@@ -24,7 +24,9 @@ describe('DELETE /api/markak/:id – 5 teszt', () => {
 
     test('2. Válasz tartalmazza a "deleted" szót', async () => {
         const res = await request(app).delete(`/api/markak/${testMarka._id}`);
-        expect(res.text).toContain('deleted');
+        // prefer checking parsed body instead of raw text to avoid brittle string matching
+        expect(res.body).toHaveProperty('deleted');
+        expect(res.body.message).toMatch(/deleted/i);
     });
 
     test('3. Az adat tényleg törlődik az adatbázisból', async () => {

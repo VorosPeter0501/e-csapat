@@ -3,7 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const mongoString = process.env.DATABASE_URL;
 
-mongoose.connect(mongoString);
+if (process.env.NODE_ENV !== 'test') {
+	mongoose.connect(mongoString);
+}
 
 const database = mongoose.connection;
 database.on('error', (error) => {
@@ -21,8 +23,11 @@ const routes = require('./routes/routes');
 app.use('/api/markak', routes); // Minden végpont ezzel az URL-lel fog kezdődni
 
 
-app.listen(3000, () => {
-console.log(`Server Started at ${3000}`)
-})
+if (process.env.NODE_ENV !== 'test') {
+	const PORT = process.env.PORT || 3000;
+	app.listen(PORT, () => {
+		console.log(`Server Started at ${PORT}`);
+	});
+}
 
-module.exports = app
+module.exports = app;
